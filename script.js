@@ -1,7 +1,12 @@
-// VARIABLES
+//--------------------------------------------------------------
+
+//                                                   VARIABLES
+
+//-------------------------------------------------------------
 const addNotes = document.getElementById("addNote");
 const note = document.getElementById("note");
 const seeNote = document.getElementById("seeNote");
+const spanDisplay = document.getElementById("spanDisplay");
 //-----------------------------------
 const colors = [
   "red",
@@ -13,9 +18,11 @@ const colors = [
   "violet",
 ];
 
-//---------------------------------------
+//--------------------------------------------------------------
 
-// FUNCTIONS
+//                                                   FUNCTIONS
+
+//-------------------------------------------------------------
 
 function updateLocalStorage() {
   var noteContent = [];
@@ -28,12 +35,32 @@ function updateLocalStorage() {
     //-----------------------------------------------------------------------
   });
 }
-updateLocalStorage();
 
+function displayItemNote() {
+  const iii = JSON.parse(localStorage.getItem("noteContent"));
+
+  for (let index = 0; index < iii.length; index++) {
+    var element = iii[index];
+    console.log(element);
+    var liDisplay = document.createElement("li");
+    liDisplay.textContent = element;
+    spanDisplay.appendChild(liDisplay);
+  }
+}
 function changeColor() {
   document.body.style.background = colors[Math.floor(7 * Math.random())];
 }
 
-// MAINSCRIPT
+//--------------------------------------------------------------
+
+//                                                   MAIN SCRIPT
+
+//-------------------------------------------------------------
+seeNote.addEventListener("click", () => {
+  displayItemNote();
+});
+
 addNotes.addEventListener("click", changeColor);
+
+updateLocalStorage();
 //-------------------
