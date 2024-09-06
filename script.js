@@ -8,4 +8,7 @@ addNotes.addEventListener("click", (event) => {
   event.preventDefault(); // Empéche le rechargement de la page
   let noteContent = note.value;
   console.log(noteContent);
+  localStorage.setItem("note", noteContent);
+  // Redirection
+  window.location.href = "notes.html";
 });
