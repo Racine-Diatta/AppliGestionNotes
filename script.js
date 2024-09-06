@@ -25,15 +25,11 @@ const colors = [
 //-------------------------------------------------------------
 
 function updateLocalStorage() {
-  var noteContent = [];
-  addNotes.addEventListener("click", (event) => {
-    event.preventDefault(); // Empéche le rechargement de la page
-    //  noteContent.push  (note.value) ; //récupère le contenu de l'input
-    noteContent.push(note.value); //récupère le contenu de l'input
-    //-------------------------------------------------------------------------
-    localStorage.setItem("noteContent", JSON.stringify(noteContent));
-    //-----------------------------------------------------------------------
-  });
+  const noteContent = note.value;
+  console.log(noteContent);
+  let notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.push(noteContent);
+  localStorage.setItem("notes", JSON.stringify(notes));
 }
 
 function displayItemNote() {
@@ -50,7 +46,6 @@ function displayItemNote() {
 function changeColor() {
   document.body.style.background = colors[Math.floor(7 * Math.random())];
 }
-
 //--------------------------------------------------------------
 
 //                                                   MAIN SCRIPT
@@ -60,7 +55,11 @@ seeNote.addEventListener("click", () => {
   displayItemNote();
 });
 
-addNotes.addEventListener("click", changeColor);
+addNotes.addEventListener("click", (event) => {
+  event.preventDefault(); // Empéche le rechargement de la page
+  updateLocalStorage();
+  changeColor();
+});
 
 updateLocalStorage();
 //-------------------
